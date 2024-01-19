@@ -1,3 +1,5 @@
+import Header from "@/components/Header";
+import Sidebar from "@/components/Sidebar";
 import "@/styles/globals.css";
 import Head from "next/head";
 
@@ -14,7 +16,6 @@ export default function App({ Component, pageProps }) {
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
-                <link rel="icon" href="/favicon.ico" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link
                     rel="preconnect"
@@ -26,7 +27,21 @@ export default function App({ Component, pageProps }) {
                     rel="stylesheet"
                 />
             </Head>
-            <Component {...pageProps} />
+
+        <div className="flex">
+
+        <div className="w-[20vw] h-screen bg-red-500">
+                <Sidebar/>
+        </div>
+
+        <div className="w-[80vw] h-screen bg-yellow-50 overflow-y-auto">
+                <Header/>
+                <Component {...pageProps} />
+        </div>
+
+        </div>
+
+
         </>
     );
 }
