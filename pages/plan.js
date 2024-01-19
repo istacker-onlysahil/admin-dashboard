@@ -1,6 +1,6 @@
 import React from 'react'
 
-const plan = () => {
+const plan = (sidebarOpen) => {
   return (
 
     <div className="px-6 py-8">

@@ -1,9 +1,18 @@
-import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import "@/styles/globals.css";
 import Head from "next/head";
+import { useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { ImCross } from "react-icons/im";
 
 export default function App({ Component, pageProps }) {
+
+    const [sideBarOpen , setSidebarOpen] = useState(false);
+
+    const closeSidebarcallback = () => {
+        setSidebarOpen(false);
+    };
+
     return (
         <>
             <Head>
@@ -30,12 +39,71 @@ export default function App({ Component, pageProps }) {
 
         <div className="flex">
 
-        <div className="w-[20vw] h-screen bg-red-500">
-                <Sidebar/>
+        <div className={`${sideBarOpen?'translate-x-[0%] md:translate-x-0 w-[80vw]':'-translate-x-[100%] md:translate-x-0 w-0'} lg:w-[20vw] h-screen bg-red-500 transition-all duration-500 `}>
+                <Sidebar closeSidebar={closeSidebarcallback} />
         </div>
 
-        <div className="w-[80vw] h-screen bg-yellow-50 overflow-y-auto">
-                <Header/>
+
+        <div className={`${sideBarOpen?'w-[20vw] overflow-y-hidden opacity-50':'w-[100vw] z-10 md:z-0 overflow-y-auto'} lg:overflow-y-auto transition-all duration-500 lg:w-[80vw] h-screen bg-yellow-50`}>
+        <header className="sticky top-0 backdrop-blur-lg shadow-yellow-50/45 shadow-lg bg-yellow-50/20 py-3 px-4 h-20">
+    <div className="max-w-4xl mx-auto">
+        {!sideBarOpen
+        ?
+    <GiHamburgerMenu className='block md:hidden text-2xl text-gray-800 m-2' onClick={()=>setSidebarOpen(true)}/>
+        :
+        <ImCross className='block md:hidden text-lg my-4 mx-2' onClick={()=>setSidebarOpen(false)}/>
+        }
+      <div className="hidden md:flex items-center justify-between">
+        <div>
+          <button
+            type="button"
+            className="flex items-center focus:outline-none rounded-lg text-gray-600 hover:text-yellow-600 focus:text-yellow-600 font-semibold p-2 border border-transparent hover:border-yellow-300 focus:border-yellow-300 transition"
+          >
+            <span className="inline-flex items-center justify-center w-6 h-6 text-gray-600 text-xs rounded bg-white transition mr-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                fill="currentColor"
+                className="bi bi-chevron-left"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+                />
+              </svg>
+            </span>
+            <span className="text-sm">Archive</span>
+          </button>
+        </div>
+        <div className="text-lg font-bold">Today's Plan</div>
+        <div>
+          <button
+            type="button"
+            className="flex items-center focus:outline-none rounded-lg text-gray-600 hover:text-yellow-600 focus:text-yellow-600 font-semibold p-2 border border-transparent hover:border-yellow-300 focus:border-yellow-300 transition"
+          >
+            <span className="text-sm">This week</span>
+            <span className="inline-flex items-center justify-center w-6 h-6 text-gray-600 text-xs rounded bg-white transition ml-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                fill="currentColor"
+                className="bi bi-chevron-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
                 <Component {...pageProps} />
         </div>
 

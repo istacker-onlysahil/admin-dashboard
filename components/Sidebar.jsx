@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 import { FiLogOut } from "react-icons/fi";
 
-const Sidebar = () => {
+
+const Sidebar = ({ closeSidebar }) => {
   const router = useRouter();
   const [activeTag, setActiveTag] = useState('');
 
@@ -25,6 +26,7 @@ const Sidebar = () => {
 
   const handleTagClick = (tag) => {
     setActiveTag(tag);
+    closeSidebar();
   };
 
   const isTagActive = (tag) => {
@@ -33,10 +35,11 @@ const Sidebar = () => {
 
   return (
 <aside className=" bg-white shadow-md h-screen">
+
     <div className="flex flex-col justify-between h-full">
       <div className="flex-grow">
         <div className="px-4 py-6 text-center border-b">
-          <Link href="/">
+          <Link href="/" onClick={()=>closeSidebar()}>
           <h1 className="text-xl font-bold leading-none select-none">
             <span className="text-yellow-700">Task Manager</span> App
           </h1>
