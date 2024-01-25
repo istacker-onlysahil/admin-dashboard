@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Plan = () => {
+const FourZeroFour = () => {
   return (
     <div></div>
   )
 }
 
-export default Plan
+export default FourZeroFour

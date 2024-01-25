@@ -25,3 +25,4 @@
     letter-spacing: 1px;
 }
 
+::-webkit-scrollbar{display: none;}

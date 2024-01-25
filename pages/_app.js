@@ -1,17 +1,49 @@
 import Sidebar from "@/components/Sidebar";
 import "@/styles/globals.css";
+import { AuthProvider, useAuth } from "@/utils/AuthContext";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { ImCross } from "react-icons/im";
+import Login from "./login";
 
-export default function App({ Component, pageProps }) {
+
+
+
+const App = ({ Component, pageProps }) => {
+    return (
+      <AuthProvider>
+        <AppContent {...{ Component, pageProps }} />
+      </AuthProvider>
+    );
+  };
+
+
+  const AppContent = ({ Component, pageProps }) => {
 
     const [sideBarOpen , setSidebarOpen] = useState(false);
 
     const closeSidebarcallback = () => {
         setSidebarOpen(false);
     };
+
+    const [authenticationChecked, setAuthenticationChecked] = useState(false);
+    const { user } = useAuth();
+
+  // Assuming you have an asynchronous function for checking authentication state
+  const checkAuthentication = async () => {
+    // Simulate an asynchronous authentication check
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    setAuthenticationChecked(true);
+  };
+
+  useEffect(() => {
+    checkAuthentication();
+  }, []); // Run this effect only once on mount
+
+
+
+
 
     return (
         <>
@@ -37,6 +69,15 @@ export default function App({ Component, pageProps }) {
                 />
             </Head>
 
+
+       
+            {authenticationChecked ? (
+        // Render the content only when the authentication state is checked
+        <>
+          {!user ? (
+            <Login />
+          ) : (
+       
         <div className="flex">
 
         <div className={`${sideBarOpen?'translate-x-[0%] md:translate-x-0 w-[80vw]':'-translate-x-[100%] md:translate-x-0 w-0'} lg:w-[20vw] h-screen bg-red-500 transition-all duration-500 `}>
@@ -44,72 +85,30 @@ export default function App({ Component, pageProps }) {
         </div>
 
 
-        <div className={`${sideBarOpen?'w-[20vw] overflow-y-hidden opacity-50':'w-[100vw] z-10 md:z-0 overflow-y-auto'} lg:overflow-y-auto transition-all duration-500 lg:w-[80vw] h-screen bg-yellow-50`}>
-        <header className="sticky top-0 backdrop-blur-lg shadow-yellow-50/45 shadow-lg bg-yellow-50/20 py-3 px-4 h-20">
-    <div className="max-w-4xl mx-auto">
+        <div className={`${sideBarOpen?'w-[20vw] overflow-y-hidden opacity-50':'w-[100vw] z-10 md:z-0 overflow-y-auto'} lg:overflow-y-auto transition-all duration-500 lg:w-[80vw] h-screen bg-yellow-50 bg-png bg-cover`}>
+
+          <div className="bg-yellow-50 m-4 p-2 sticky top-0 rounded-md inline-block md:hidden">
         {!sideBarOpen
         ?
-    <GiHamburgerMenu className='block md:hidden text-2xl text-gray-800 m-2' onClick={()=>setSidebarOpen(true)}/>
+        <GiHamburgerMenu className='text-2xl text-gray-800' onClick={()=>setSidebarOpen(true)}/>
         :
-        <ImCross className='block md:hidden text-lg my-4 mx-2' onClick={()=>setSidebarOpen(false)}/>
-        }
-      <div className="hidden md:flex items-center justify-between">
-        <div>
-          <button
-            type="button"
-            className="flex items-center focus:outline-none rounded-lg text-gray-600 hover:text-yellow-600 focus:text-yellow-600 font-semibold p-2 border border-transparent hover:border-yellow-300 focus:border-yellow-300 transition"
-          >
-            <span className="inline-flex items-center justify-center w-6 h-6 text-gray-600 text-xs rounded bg-white transition mr-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="1em"
-                height="1em"
-                fill="currentColor"
-                className="bi bi-chevron-left"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
-                />
-              </svg>
-            </span>
-            <span className="text-sm">Archive</span>
-          </button>
-        </div>
-        <div className="text-lg font-bold">Today's Plan</div>
-        <div>
-          <button
-            type="button"
-            className="flex items-center focus:outline-none rounded-lg text-gray-600 hover:text-yellow-600 focus:text-yellow-600 font-semibold p-2 border border-transparent hover:border-yellow-300 focus:border-yellow-300 transition"
-          >
-            <span className="text-sm">This week</span>
-            <span className="inline-flex items-center justify-center w-6 h-6 text-gray-600 text-xs rounded bg-white transition ml-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="1em"
-                height="1em"
-                fill="currentColor"
-                className="bi bi-chevron-right"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
+        <ImCross className='text-lg' onClick={()=>setSidebarOpen(false)}/>
+      }
       </div>
-    </div>
-  </header>
+
+
                 <Component {...pageProps} />
         </div>
 
         </div>
+     )}
+     </>
+   ) : (
+     // Render a loading state or placeholder while checking authentication
+     <></>
+   )}
+ </>
+);
+};
 
-
-        </>
-    );
-}
+export default App;

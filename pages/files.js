@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Plan = () => {
+const Files = () => {
   return (
     <div></div>
   )
 }
 
-export default Plan
+export default Files

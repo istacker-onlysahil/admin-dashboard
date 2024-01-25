@@ -1,10 +1,11 @@
+import Link from 'next/link'
 import React from 'react'
 
 const Welcome = () => {
   return (
     <div className="px-6 py-8">
       <div className="max-w-screen-lg mx-auto">
-        <div className="bg-white rounded-3xl p-8 mt-16">
+        <div className="bg-white rounded-3xl p-8 mt-28">
         
 
 
@@ -26,9 +27,9 @@ const Welcome = () => {
         </p>
       </div>
       <div className="text-center lg:text-left">
-        <button className="block visible py-4 px-8 mb-4 shadow-lg shadow-yellow-300 font-semibold tracking-wide leading-none text-white bg-yellow-300 rounded cursor-pointer sm:mr-3 sm:mb-0 sm:inline-block hover:bg-gray-800 transition-all duration-300 hover:shadow-gray-400 ">
+        <Link href="/plan" className="block visible py-4 px-8 mb-4 shadow-lg shadow-yellow-300 font-semibold tracking-wide leading-none text-white bg-yellow-300 rounded cursor-pointer sm:mr-3 sm:mb-0 sm:inline-block hover:bg-gray-800 transition-all duration-300 hover:shadow-gray-400 ">
           Let's Start
-        </button>
+        </Link>
       </div>
     </div>
     
