@@ -27,7 +27,7 @@ const Notes = () => {
     // Fetch data from the API when the component mounts
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/getAllNotes');
+        const response = await fetch('https://scrapflow-admin.vercel.app/api/getAllNotes');
         const data = await response.json();
         setCardsData(data.data);
         setLoading(false); // Set loading to false when data fetching is complete
@@ -53,7 +53,7 @@ const Notes = () => {
 
   const updateCardsData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/getAllNotes");
+      const response = await fetch("https://scrapflow-admin.vercel.app/api/getAllNotes");
       const data = await response.json();
       setCardsData(data.data);
     } catch (error) {

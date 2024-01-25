@@ -34,7 +34,7 @@ const FormNotes = ({ formCloseBtn , updateCardsData }) => {
             setIsSubmitting(true); // Set isSubmitting to true when starting the submission
 
 
-            const response = await fetch("http://localhost:5000/api/saveNote", {
+            const response = await fetch("https://scrapflow-admin.vercel.app/api/saveNote", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
